@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset=utf-8>
+    <title>The Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+    <script src="jquery/dist/jquery.min.js"></script>
+    <script src="vendor/semantic.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="vendor/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+  </head>
+  <body>
+    <!-- <div class="qrcode" id="qrcode"></div> -->
+    <div class="info-basic">
+      <div id="username">{{ username }}</div>
+      <div id="room">{{ room }}</div>
+    </div>
+    <div class="info-players">
+      <ul id="players">
+      </ul>
+    </div>
+    <div class="char-box">
+      <textarea id="chat-box" wrap="off" cols="30" rows="10"></textarea>
+      <br>
+      <input id="text" size="30" class="chat-input" placeholder="Enter your message">
+      <button id="send" class="chat-button">Send</button>
+    </div>
+    <div class="menu">
+      <button>Controls</button>
+      <button>Leave</button>
+    </div>
+    <script src="dist/game-bundle.js"></script>
+  </body>
+</html>

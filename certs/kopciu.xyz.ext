@@ -1,0 +1,9 @@
+authorityKeyIdentifier=keyid,issuer
+basicConstraints=CA:FALSE
+keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1 = kopciu.xyz
+DNS.2 = kopciu.xyz.192.168.0.106.xip.io
+DNS.3 = www.kopciu.xyz

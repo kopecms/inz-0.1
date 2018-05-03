@@ -1,0 +1,13 @@
+{
+  server: {
+    port: 4200,
+    host: '0.0.0.0'
+  },
+  peerjsServer: {
+    port: 9000,
+    host: 'https://192.168.0.106'
+  },
+  socketioServer: {
+    updateRate: 100,
+  }
+}

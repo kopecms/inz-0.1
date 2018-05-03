@@ -1,0 +1,54 @@
+html{
+  height:100%;
+  overflow-y: hidden;
+}
+body{
+  margin: 0;
+  height:100%;
+}
+.unvisible {
+  display: none;
+}
+.container:after{
+  content: '';
+  display: table;
+  clear: both;
+}
+.container > div{
+  float: left;
+  height: 50vh;
+}
+.half{
+  width: 50%;
+}
+.full{
+  background-color:#FFF;
+  width: 100%;
+}
+.button{
+  background-color:#FFF;
+}
+.touched {
+  opacity: 0.5;
+  background-color: blue;
+}
+.login-container {
+  position: relative;
+  top: 20%;
+  left: 25%;
+}
+.login-segment {
+  width: 50%;
+  top: 25%;
+}
+.qrcode img {
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  width: 50vw;
+  height: 50vh;
+}
+video {
+  width: 100%;
+  height: auto;
+}
