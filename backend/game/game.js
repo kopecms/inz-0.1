@@ -30,9 +30,12 @@ class Game {
     return this.players[id];
   }
 
+  getPlayers() {
+    return JSON.stringify(this.players);
+  }
+
   generateRandomPosition() {
     return vector(randomInt(-40, 40), 7, randomInt(-40, 40))
   }
 }
-
 module.exports = Game;

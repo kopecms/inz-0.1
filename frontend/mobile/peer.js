@@ -3,8 +3,7 @@ import Peer from 'peerjs';
 import pad from './pad';
 
 const peer = (function() {
-  //var peer = new Peer(configuration.mobileId, { key: 'm6uhjzrbsiu4ygb9' });
-
+  var peer = new Peer(configuration.mobileId, { key: 'm6uhjzrbsiu4ygb9' });
 
   return {
     init(id) {

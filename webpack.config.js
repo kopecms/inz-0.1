@@ -5,7 +5,7 @@ module.exports = {
   context: __dirname,
   entry: {
     index: './frontend/index.js',
-    game: './frontend/main.js',
+    game: './frontend/game/main.js',
     mobile: './frontend/mobile/main.js'
   },
   output: {

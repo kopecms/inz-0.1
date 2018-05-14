@@ -7,7 +7,7 @@
     port: 9000,
     host: 'https://192.168.0.106'
   },
-  socketioServer: {
+  socketServer: {
     updateRate: 100,
   }
 }

@@ -12,9 +12,11 @@
   },
   "dependencies": {
     "body-parser": "^1.18.2",
+    "cannon": "^0.6.2",
     "express-session": "^1.15.6",
     "fs": "0.0.1-security",
     "gyronorm": "^2.0.6",
+    "has": "^1.0.1",
     "instascan": "^1.0.0",
     "lodash": "^4.17.5",
     "nipplejs": "^0.6.8",
