@@ -1,6 +1,6 @@
 import io from 'socket.io-client';
 import $ from 'jquery';
-import multiplayerManager from '../world/manager';
+import MultiplayerManager from '../world/manager';
 
 const socket = (function() {
   let socket;
@@ -21,8 +21,12 @@ const socket = (function() {
       socket.on('connect', () => {
         socket.emit('joined', {username, room});
       });
-      socket.on('joined', (data) => {
-        multiplayerManager.updatePlayers(data);
+      socket.on('joined', data => {
+        console.log(data);
+        MultiplayerManager.updatePlayers(data);
+      });
+      socket.on('gameState', data => {
+        MultiplayerManager.udpateGameState(data);
       });
 
       // chat interface

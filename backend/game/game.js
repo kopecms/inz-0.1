@@ -31,7 +31,7 @@ class Game {
   }
 
   getPlayers() {
-    return JSON.stringify(this.players);
+    return this.players;
   }
 
   generateRandomPosition() {

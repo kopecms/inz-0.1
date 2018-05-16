@@ -3,30 +3,41 @@ import * as THREE from 'three';
 import config from '../../config/config-front';
 import Peer from 'peerjs';
 import socket from './interface/socket';
-import multiplayerManager from './world/manager';
+import MultiplayerManager from './world/manager';
 import Camera from './interface/camera';
 import Scene from './world/scene';
+import Physic from './world/physic';
+import Box from './entities/box';
+import Keyboard from './interface/keyboard';
+
+// TODO refactor
+var controllerData = {};
 
 function getUsernameFromTemplate() {
   return $('#username').text()
 }
 
 function getRoomNameFromTemplate() {
-  return $('#room').text()
+  let room = $('#room').text();
+  return 'room';
 }
 
-function connectPeerJS(username) {
-  var peer = new Peer(username, {
-    host: 'www.kopciu.xyz',
-    port: 9000,
-    path: '/',
-    secure: true
-   });
-  peer.on('connection', function (conn) {
+function initPeerJs(username) {
+  let peer = new Peer(username, {
+      // TODO refactor
+      host: 'www.kopciu.xyz',
+      port: 443,
+      path: '/peerjs',
+      secure: true
+    });
+    console.log(username)
+    peer.on('connection', function (conn) {
+    console.log('sadas')
     conn.on('open', function () {
       conn.on('data', function (receiveData) {
-        logger('Data recieved from mobile: ' + JSON.stringify(receiveData), 'all');
-        setData(receiveData);
+        console.log('Data recieved from mobile: ' + JSON.stringify(receiveData));
+        // TODO refactor jak juz bedzie dzialac
+        controllerData = receiveData;
       });
     });
   });
@@ -36,13 +47,18 @@ $(document).ready(() => {
   let username = getUsernameFromTemplate();
   let room = getRoomNameFromTemplate();
 
-  multiplayerManager.init();
+  MultiplayerManager.init();
   socket.init(username, room);
-
-  let game = multiplayerManager.getGame();
+  // TODO refactor
+  initPeerJs(username);
+  MultiplayerManager.setUsername(username);
+  let game = MultiplayerManager.getGame();
 
   const camera = Camera.getInstance();
   const scene = Scene.getInstance();
+  const physic = Physic.getInstance();
+
+  Keyboard.getInstance();
 
   let renderer = new THREE.WebGLRenderer({
     alpha: true,
@@ -52,12 +68,17 @@ $(document).ready(() => {
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   document.body.appendChild(renderer.domElement);
-  console.log(scene)
-  console.log(camera);
+
+  let box = new Box(10, 10, 10, 1);
+  box.setPosition(0, 50, 0);
+  Physic.addEntity(box);
+
   let animate = () => {
+    Physic.update();
+    Camera.update(MultiplayerManager.getPlayer(), controllerData);
+    MultiplayerManager.update();
     renderer.render(scene, camera);
     requestAnimationFrame(animate);
   };
   animate();
-  //connectPeerJS('marcin');
 });

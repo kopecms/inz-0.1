@@ -8,7 +8,7 @@ function getUsername() {
   return pathArray[2];
 }
 $(document).ready(() => {
-  pad.init();
+  pad.init(getUsername());
   peer.init(getUsername());
 });
 

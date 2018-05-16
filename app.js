@@ -10,6 +10,7 @@ const https = require('https');
 const views = require('./backend/views');
 const socket = require('./backend/socket');
 
+const ExpressPeerServer = require('peer').ExpressPeerServer;
 const app = express();
 
 const options = {
@@ -28,6 +29,15 @@ const server = https.createServer(options, app).listen(8443, config.get('server.
 
 const io = require('socket.io').listen(server);
 
+const optionsPeerjs = {
+  debug: true
+}
+peerServer = ExpressPeerServer(server, optionsPeerjs);
+app.use('/peerjs', peerServer);
+
+peerServer.on('connection', function(id) {
+  console.log(id)
+});
 // Add headers
 app.use(function (req, res, next) {
 
