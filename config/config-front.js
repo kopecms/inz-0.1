@@ -4,6 +4,9 @@ const config = {
     host: '0.0.0.0',
     messageInterval: 100,
   },
+  socket: {
+    messageInterval: 100,
+  },
   colors: {
     darkBlue: 0x38618c,
     blue: 0x35a7ff,

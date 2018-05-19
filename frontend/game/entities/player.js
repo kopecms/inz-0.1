@@ -75,6 +75,13 @@ class Player {
     v.copy(this.direction);
     u.copy(this.direction);
   }
+  delete() {
+    let scene = Scene.getInstance();
+    scene.remove(this.mesh);
+    scene.remove(this.idTextMesh)
+    let physic = Physic.getInstance();
+    physic.removeBody(this.body);
+  }
 }
 
 export default Player;

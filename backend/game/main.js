@@ -13,7 +13,6 @@ const gameMain = (function () {
   const createInstance = () => {
     return {
       init() {
-        games = {};
       },
       addUserToGame(room, username) {
         if (!has(games, room)) {
@@ -22,8 +21,17 @@ const gameMain = (function () {
         }
         games[room].createNewPlayer(username);
       },
+      getGames() {
+        return games;
+      },
       getPlayers(room) {
         return games[room].getPlayers()
+      },
+      updatePlayer(room, id, data) {
+        games[room].updatePlayerPosition(id, data);
+      },
+      removeUserFromGame(room, id) {
+        delete games[room].players[id];
       }
     }
   }

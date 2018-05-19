@@ -16,17 +16,23 @@ const socket = (function() {
     send(eventName, data) {
       sendFunc()
     },
+    sendPlayerData(data) {
+      sendFunc('playerData', data);
+    },
     init(username, room) {
       socket = io.connect('www.kopciu.xyz', { secure: true });
       socket.on('connect', () => {
         socket.emit('joined', {username, room});
+      });
+      socket.on('disconnected', data => {
+        MultiplayerManager.updatePlayers(data);
       });
       socket.on('joined', data => {
         console.log(data);
         MultiplayerManager.updatePlayers(data);
       });
       socket.on('gameState', data => {
-        MultiplayerManager.udpateGameState(data);
+        MultiplayerManager.updateGameState(data);
       });
 
       // chat interface

@@ -1,7 +1,7 @@
 const _ = require('lodash');
 const config = require('config');
 const events = require('./events');
-
+const gameMain = require('./game/main')
 //TODO games
 
 games = {}
@@ -9,11 +9,11 @@ games = {}
 const socket = (function () {
 
   let ioInstance;
-
+  let main;
   const setupDataBroadcasting = () => {
     setInterval(() => {
-      _.forEach(games, (game, room) => {
-        io.to(room).emit('gameState', game.getCurrentState());
+      _.forEach(main.getGames(), (game, room) => {
+        ioInstance.to(room).emit('gameState', game.getCurrentState());
       });
     }, config.get('socketServer.updateRate'));
   }
@@ -21,6 +21,7 @@ const socket = (function () {
   return {
     init(io) {
       ioInstance = io;
+      main = gameMain.getInstance();
       io.on('connection', client => {
         console.log('New player connected: ' + client.id);
 
@@ -28,10 +29,10 @@ const socket = (function () {
 
         client.on('joined', data => events.onJoin(io, client, data))
         client.on('hello', data => events.onHello(client, data));
-        client.on('position', data => events.onPosition(client, data));
+        client.on('playerData', data => events.onPlayerData(client, data));
         client.on('collision', data => events.onCollision(client, data));
         client.on('shot', data => events.onShot(client, data));
-        client.on('disconnect', () => events.onDisconnect(client));
+        client.on('disconnect', () => events.onDisconnect(io, client));
 
         //chat interface
         client.on('message', data => events.onMessage(client, data));
