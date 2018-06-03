@@ -28,6 +28,9 @@ const Camera = (function () {
     update(player, data) {
       if (player instanceof Player) {
         player.cameraPosition.copy(instance.position);
+        move.subVectors(player.mesh.position, previous);
+        previous.copy(player.mesh.position);
+        instance.position.addVectors(instance.position, move);
         instance.lookAt(player.mesh.position);
       }
     }

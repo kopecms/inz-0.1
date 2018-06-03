@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import config from '../../../config/config-front';
 import MultiplayerManager from '../world/manager';
+import Camera from '../interface/camera';
 
 const Keyboard = (() => {
 
@@ -59,6 +60,26 @@ const Keyboard = (() => {
         })
         instance.registerKey(32, null, (data) => {
           MultiplayerManager.getPlayer().body.velocity.y = 100;
+        })
+        instance.registerKey(81, null, (data) => {
+          let camera = Camera.getInstance();
+          let player = MultiplayerManager.getPlayer();
+          let cameraPosition = new THREE.Vector3();
+          cameraPosition.copy(camera.position);
+          cameraPosition.subVectors(cameraPosition, player.mesh.position);
+          cameraPosition.applyAxisAngle(new THREE.Vector3(0, 1, 0), -1.0*config.keyboard.rotateCameraSpeed);
+          cameraPosition.addVectors(cameraPosition, player.mesh.position);
+          camera.position.copy(cameraPosition);
+        })
+        instance.registerKey(69, null, (data) => {
+          let camera = Camera.getInstance();
+          let player = MultiplayerManager.getPlayer();
+          let cameraPosition = new THREE.Vector3();
+          cameraPosition.copy(camera.position);
+          cameraPosition.subVectors(cameraPosition, player.mesh.position);
+          cameraPosition.applyAxisAngle(new THREE.Vector3(0, 1, 0), config.keyboard.rotateCameraSpeed);
+          cameraPosition.addVectors(cameraPosition, player.mesh.position);
+          camera.position.copy(cameraPosition);
         })
       }
       return instance;

@@ -1,5 +1,7 @@
 import * as CANNON from 'cannon';
+import * as THREE from 'three';
 import Player from '../entities/player';
+import Camera from '../interface/camera';
 import initMaterials from './materials';
 import { inspect } from 'util';
 
@@ -8,6 +10,7 @@ const Physic = (() => {
   let timeStep = 1 / 60;
   let updateList = [];
   let materials = {};
+  let tempTextIdVector = new THREE.Vector3();
 
   const createInstance = () => {
     const init = () => {
@@ -34,8 +37,9 @@ const Physic = (() => {
         entity.mesh.quaternion.copy(entity.body.quaternion);
         if (entity instanceof Player && entity.idTextMesh) {
           entity.idTextMesh.position.set(
-            entity.body.position.x, entity.body.position.y + 15, entity.body.position.z + entity.idTextShift
+            entity.body.position.x, entity.body.position.y + 15, entity.body.position.z
           );
+          entity.idTextMesh.lookAt(Camera.getInstance().position);
         }
       });
     },

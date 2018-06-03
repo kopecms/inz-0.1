@@ -20,6 +20,9 @@ const config = {
     player: {
       speed: 30,
     }
+  },
+  keyboard: {
+    rotateCameraSpeed: 0.1,
   }
 }
 

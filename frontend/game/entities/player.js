@@ -59,8 +59,8 @@ class Player {
       font: font,
     });
     geometry.computeBoundingBox();
-    this.idTextShift = -0.5 * (geometry.boundingBox.max.x - geometry.boundingBox.min.x);
-    let material = new THREE.MeshPhongMaterial({ color: config.colors.yellow, flatShading: true });
+    this.idTextShift = 0.5 * (geometry.boundingBox.max.x - geometry.boundingBox.min.x);
+    let material = new THREE.MeshBasicMaterial({ color: config.colors.yellow });
     let mesh = new THREE.Mesh(geometry, material);
     mesh.rotateY(-Math.PI / 2)
     let scene = Scene.getInstance();
