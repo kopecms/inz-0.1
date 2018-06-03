@@ -31,8 +31,10 @@ const socket = (function () {
         client.on('hello', data => events.onHello(client, data));
         client.on('playerData', data => events.onPlayerData(client, data));
         client.on('collision', data => events.onCollision(client, data));
+        client.on('coinCollected', data => events.onCoinCollected(io, client, data));
         client.on('shot', data => events.onShot(client, data));
         client.on('disconnect', () => events.onDisconnect(io, client));
+
 
         //chat interface
         client.on('message', data => events.onMessage(io, client, data));

@@ -24,6 +24,9 @@ const gameMain = (function () {
       getGames() {
         return games;
       },
+      getGame(room) {
+        return games[room];
+      },
       getPlayers(room) {
         return games[room].getPlayers()
       },

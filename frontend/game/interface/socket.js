@@ -31,6 +31,10 @@ const socket = (function() {
       socket.on('gameState', data => {
         MultiplayerManager.updateGameState(data);
       });
+      socket.on('coinsState', data => {
+        MultiplayerManager.updateCoinsState(data);
+      });
+      
 
       // chat interface
       socket.on('status', data => {

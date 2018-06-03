@@ -9,5 +9,10 @@
   },
   socketServer: {
     updateRate: 100,
+  },
+  game: {
+    initCoinsQuantity: 10,
+    coinsArea: 250,
+    validCoinDistance: 10,
   }
 }

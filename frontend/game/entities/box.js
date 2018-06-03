@@ -7,7 +7,6 @@ import Physic from '../world/physic';
 import config from '../../../config/config-front';
 
 class Box {
-
   constructor(x, y, z, mass=1, color=config.colors.red, physicMaterial=Physic.getMaterial('basicMaterial')) {
     let geometry = new THREE.BoxGeometry(x, y, z);
     let material = new THREE.MeshLambertMaterial({ color });

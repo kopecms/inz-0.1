@@ -11,7 +11,6 @@ const Keyboard = (() => {
     const onDocumentKeyDown = () => {
       let keyCode = event.which;
       let e = keyMap[keyCode];
-      console.log(keyCode)
       if (e) {
         e.func(e.data);
       }

@@ -17,6 +17,11 @@ class Player {
     this.mesh = this._createMesh();
     this.body = this._createBody(position);
 
+    //
+    this.direction = new THREE.Vector3(0, 0, 0);
+    this.v = new THREE.Vector3(0, 0, 0);
+    this.u = new THREE.Vector3(0, 0, 0);
+
     let loader = new THREE.FontLoader();
     loader.load(config.game.font, font => {
       this.idTextMesh = this._createText(id, font);
@@ -68,12 +73,8 @@ class Player {
     return mesh
   }
   update(data) {
-    let direction = new THREE.Vector3(0, 0, 0);
-    let v = new THREE.Vector3(0, 0, 0);
-    let u = new THREE.Vector3(0, 0, 0);
-    this.direction = direction.subVectors(this.mesh.position, this.cameraPosition).normalize();
-    v.copy(this.direction);
-    u.copy(this.direction);
+    this.direction.set(0, 0, 0);
+    this.direction = this.direction.subVectors(this.mesh.position, this.cameraPosition).normalize();
   }
   delete() {
     let scene = Scene.getInstance();

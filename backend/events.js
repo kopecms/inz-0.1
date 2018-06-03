@@ -17,7 +17,25 @@ module.exports = {
         'joined',
         main.getPlayers(room)
       );
+      let game = main.getGame(room);
+      io.to(room).emit(
+        'coinsState',
+        game.coins
+      );
+      console.log(game.coins);
     });
+  },
+  onCoinCollected(io, client, data) {
+    console.log(data)
+    let main = gameMain.getInstance();
+    const { room, username } = connections[client.id];
+    let game = main.getGame(room);
+    let coins = game.coinCollected(username, data.coinId);
+    io.to(room).emit(
+      'coinsState',
+      coins
+    );
+
   },
   onHello(client, data) {
     console.log('hello');
@@ -34,17 +52,19 @@ module.exports = {
     console.log('shot');
   },
   onDisconnect(io, client) {
-    console.log('disconnect');
+    console.log('disconnect', client.id);
     let main = gameMain.getInstance();
-    const { room, username } = connections[client.id];
-    client.leave(room, () => {
-      main.removeUserFromGame(room, username);
-      io.to(room).emit(
-        'disconnected',
-        main.getPlayers(room)
-      );
-      delete connections[client.id];
-    });
+    if (connections.hasOwnProperty(client.id)) {
+      const { room, username } = connections[client.id];
+      client.leave(room, () => {
+        main.removeUserFromGame(room, username);
+        io.to(room).emit(
+          'disconnected',
+          main.getPlayers(room)
+        );
+        delete connections[client.id];
+      });
+    }
   },
   onMessage(io, client, data) {
     console.log('message', data);

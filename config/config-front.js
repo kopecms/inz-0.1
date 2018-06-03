@@ -19,6 +19,12 @@ const config = {
     font: '/fonts/Arial_Regular.json',
     player: {
       speed: 30,
+    },
+    coin: {
+      r: 4,
+      h: 1,
+      rSegments: 10,
+      initQuantity: 10,
     }
   },
   keyboard: {

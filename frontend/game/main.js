@@ -82,6 +82,7 @@ $(document).ready(() => {
     Physic.update();
     Camera.update(MultiplayerManager.getPlayer(), controllerData);
     MultiplayerManager.update();
+    MultiplayerManager.updateCoins();
     renderer.render(scene, camera);
     requestAnimationFrame(animate);
   };
