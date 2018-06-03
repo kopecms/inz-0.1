@@ -1,20 +1,16 @@
 import io from 'socket.io-client';
-import $ from 'jquery';
 import MultiplayerManager from '../world/manager';
+import { onNewStatus, onNewMessage, setupChatEvents } from './chat';
+import { addToScoreTable, removeFromScoreTable } from './score-table';
 
 const socket = (function() {
   let socket;
   const sendFunc = (eventName, data) => {
     socket.emit(eventName, data);
   };
-  const sendTextMsg = () => {
-    let text = $('#text').val();
-    $('#text').val('');
-    sendFunc('message', { msg: text });
-  };
   return {
     send(eventName, data) {
-      sendFunc()
+      sendFunc(eventName, data)
     },
     sendPlayerData(data) {
       sendFunc('playerData', data);
@@ -25,11 +21,12 @@ const socket = (function() {
         socket.emit('joined', {username, room});
       });
       socket.on('disconnected', data => {
-        MultiplayerManager.updatePlayers(data);
+        let removedPlayers = MultiplayerManager.updatePlayers(data);
+        removeFromScoreTable(removedPlayers);
       });
       socket.on('joined', data => {
-        console.log(data);
         MultiplayerManager.updatePlayers(data);
+        addToScoreTable(Object.keys(data));
       });
       socket.on('gameState', data => {
         MultiplayerManager.updateGameState(data);
@@ -37,21 +34,12 @@ const socket = (function() {
 
       // chat interface
       socket.on('status', data => {
-        $('#chat-box').val($('#chat-box').val() + '<' + data.msg + '>\n');
-        $('#chat-box').scrollTop($('#chat-box')[0].scrollHeight);
+        onNewStatus(data);
       });
       socket.on('message', data => {
-        $('#chat-box').val($('#chat-box').val() + data.msg + '\n');
-        $('#chat-box').scrollTop($('#chat-box')[0].scrollHeight);
+        onNewMessage(data);
       });
-
-      $('#send').on('click', sendTextMsg);
-      $('#text').keypress(e => {
-        let code = e.keyCode || e.which;
-        if (code == 13) {
-          send();
-        }
-      });
+      setupChatEvents();
     },
   }
 })();

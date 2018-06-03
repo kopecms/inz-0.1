@@ -14,6 +14,7 @@ class Game {
   }
 
   updatePlayerPosition(id, data) {
+    data = data || {position: null, velocity: null};
     this.players[id].position = data.position;
     this.players[id].velocity = data.velocity;
   }

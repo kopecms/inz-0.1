@@ -89,3 +89,9 @@ textarea {
   width:87%;
   margin-right: 1%;
 }
+.score {
+  float: right;
+}
+.player-info {
+  margin: 0 5px 0 5px;
+}

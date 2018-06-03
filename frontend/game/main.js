@@ -14,7 +14,12 @@ import Keyboard from './interface/keyboard';
 var controllerData = {};
 
 function getUsernameFromTemplate() {
-  return $('#username').text()
+  let username = $('#username').text();
+  if (username === '') {
+    username = 'test' + Math.floor(Math.random()*100);
+    $('#username').val(username);
+  }
+  return username;
 }
 
 function getRoomNameFromTemplate() {

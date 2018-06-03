@@ -25,7 +25,7 @@ http.createServer((req, res) => {
   res.writeHead(301, { Location: `https://${req.headers.host}${req.url}` });
   res.end();
 }).listen(config.get('server.port'), config.get('server.host'));
-const server = https.createServer(options, app).listen(8443, config.get('server.host'));
+const server = https.createServer(options, app).listen(4443, config.get('server.host'));
 
 const io = require('socket.io').listen(server);
 
@@ -40,8 +40,12 @@ peerServer.on('connection', function(id) {
 });
 // Add headers
 app.use(function (req, res, next) {
-
-  res.setHeader('Access-Control-Allow-Origin', 'https://kopciu.xyz');
+  var allowedOrigins = ['https://kopciu.xyz', 'http://kopciu.xyz', 'http://192.168.0.102:4200', 'https://192.168.0.102', 'http://192.168.0.102:4200'];
+  var origin = req.headers.origin;
+  if(allowedOrigins.indexOf(origin) > -1){
+       res.setHeader('Access-Control-Allow-Origin', origin);
+  }
+  //res.setHeader('Access-Control-Allow-Origin', 'https://kopciu.xyz');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
   res.setHeader('Access-Control-Allow-Credentials', true);

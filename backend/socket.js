@@ -35,7 +35,7 @@ const socket = (function () {
         client.on('disconnect', () => events.onDisconnect(io, client));
 
         //chat interface
-        client.on('message', data => events.onMessage(client, data));
+        client.on('message', data => events.onMessage(io, client, data));
       });
     },
     getIo() {

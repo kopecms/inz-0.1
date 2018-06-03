@@ -61,17 +61,18 @@ const MultiplayerManager = (function () {
         if (!players.hasOwnProperty(id)) {
           players[id] = new Player(id, data.position);
         }
-        console.log(players);
       });
-      console.log('event')
+      let removedPlayers = [];
       _.forOwn(players, function (player, id) {
         if (!playersData.hasOwnProperty(id)) {
+          removedPlayers.push(id);
           player.delete();
           delete players[id];
         }
       });
+      return removedPlayers;
     },
-  }
+  };
 })();
 
 export default MultiplayerManager;

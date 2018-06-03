@@ -46,7 +46,15 @@ module.exports = {
       delete connections[client.id];
     });
   },
-  onMessage(client, data) {
+  onMessage(io, client, data) {
     console.log('message', data);
+    const { room, username } = connections[client.id];
+    io.to(room).emit(
+      'message',
+      {
+        id: username,
+        msg: data.msg,
+      }
+    );
   },
 }

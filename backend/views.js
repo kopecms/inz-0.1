@@ -21,6 +21,12 @@ const views = (function () {
           randomInt: randomInt(),
         });
       });
+      // TODO nie dziala nie wiem czemu
+      /* app.get('/game/:username', (req, res, next) => {
+        res.render('game', {
+          randomInt: randomInt(),
+        });
+      }); */
       app.get('/mobile/:username', (req, res, next) => {
         res.render('mobile', {
           randomInt: randomInt()
