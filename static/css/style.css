@@ -13,6 +13,8 @@ body{
   content: '';
   display: table;
   clear: both;
+
+  display: none;
 }
 .container > div{
   float: left;
@@ -94,4 +96,39 @@ textarea {
 }
 .player-info {
   margin: 0 5px 0 5px;
+}
+#mobile-join {
+  display: none;
+}
+#instructions {
+  display: inline;
+  text-align: center;
+}
+#start-game {
+  display: none;
+  margin: auto;
+  width: 100%;
+}
+#you-are-connected {
+  padding-bottom: 10px;
+  text-align: center;
+  display: none;
+}
+#pad-container {
+  display: none;
+}
+#connected-container {
+  text-align: center;
+}
+@media only screen and (max-width: 600px) {
+  #mobile-join {
+    display: block;
+    margin: auto;
+  }
+  #join {
+    display: none;
+  }
+  #room-field {
+    display: none;
+  }
 }

@@ -8,8 +8,12 @@ function getUsername() {
   return pathArray[2];
 }
 $(document).ready(() => {
-  pad.init(getUsername());
-  peer.init(getUsername());
+  let username = getUsername();
+  $("#start-game").click(() => {
+    peer.startGame();
+  });
+  pad.init(username);
+  peer.init(username);
 });
 
 

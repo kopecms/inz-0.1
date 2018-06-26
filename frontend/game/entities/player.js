@@ -70,7 +70,7 @@ class Player {
     mesh.rotateY(-Math.PI / 2)
     let scene = Scene.getInstance();
     scene.add(mesh);
-    return mesh
+    return mesh;
   }
   update(data) {
     this.direction.set(0, 0, 0);
