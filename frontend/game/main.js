@@ -14,7 +14,7 @@ import Keyboard from './interface/keyboard';
 var controllerData = {};
 
 function getUsernameFromTemplate() {
-  let username = $('#username').text();
+  let username = $('#username').text().toLowerCase();
   if (username === '') {
     username = 'test' + Math.floor(Math.random()*100);
     $('#username').val(username);
@@ -23,7 +23,7 @@ function getUsernameFromTemplate() {
 }
 
 function getRoomNameFromTemplate() {
-  let room = $('#room').text();
+  let room = $('#room').text().toLowerCase();
   return 'room';
 }
 

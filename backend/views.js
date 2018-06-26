@@ -2,7 +2,7 @@ const views = (function () {
 
   const randomInt = () => {
     return Math.floor(Math.random() * 10000);
-  }
+  };
 
   return {
     init(app) {
@@ -29,12 +29,12 @@ const views = (function () {
       }); */
       app.get('/mobile/:username', (req, res, next) => {
         res.render('mobile', {
-          randomInt: randomInt()
+          randomInt: randomInt(),
         });
       });
       app.get('/health-check', (req, res) => res.sendStatus(200));
     }
-  }
+  };
 })();
 
 module.exports = views;
