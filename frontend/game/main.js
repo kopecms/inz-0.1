@@ -24,7 +24,7 @@ function getUsernameFromTemplate() {
 
 function getRoomNameFromTemplate() {
   let room = $('#room').text().toLowerCase();
-  return 'room';
+  return room;
 }
 
 function initPeerJs(username) {

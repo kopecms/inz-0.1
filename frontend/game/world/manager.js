@@ -8,6 +8,7 @@ import Settings from '../interface/settings';
 import socket from '../interface/socket';
 import config from '../../../config/config-front';
 import Coin from '../entities/coin';
+import { updatePlayerScore } from '../interface/score-table';
 
 const MultiplayerManager = (function () {
   const game = { 
@@ -71,6 +72,7 @@ const MultiplayerManager = (function () {
     },
     updateGameState(gameStateData){
       gameState = gameStateData;
+      updatePlayerScore(gameState);
     },
     updatePlayers(playersData) {
       _.forOwn(playersData, function (data, id) {

@@ -50,7 +50,7 @@ body{
   width: 50vw;
   height: 50vh;
 }
-.info-players {
+#info-players {
   min-width: 10%;
   min-height: 10%;
   position: fixed;
@@ -93,8 +93,10 @@ textarea {
 }
 .score {
   float: right;
+  margin-right: 5px;
 }
-.player-info {
+.player {
+  display:inline;
   margin: 0 5px 0 5px;
 }
 #mobile-join {

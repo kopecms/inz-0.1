@@ -50,7 +50,7 @@ class Game {
       let coin = this.coins[coinId];
       let player = this.players[playerId];
       if (distance(player.position, coin) < config.get('game.validCoinDistance')) {
-        player.points += 10;
+        player.score += 10;
         delete this.coins[coinId];
       }
     }
@@ -66,7 +66,7 @@ class Game {
     this.players[id] = {
       position: this.generateRandomPosition(),
       velocity: vector(0, 0, 0),
-      points: 0,
+      score: 0,
     }
     return this.players[id];
   }
