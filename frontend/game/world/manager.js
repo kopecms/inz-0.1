@@ -54,11 +54,11 @@ const MultiplayerManager = (function () {
     getGame() {
       return game;
     },
-    update() {
+    update(controllerData) {
       _.forOwn(players, function (player, id) {
         if (gameState.hasOwnProperty(id)) {
           if (id === userId && players.hasOwnProperty(userId)) {
-            player.update();
+            player.update(controllerData);
           } else {
             if (gameState[id] && gameState[id].position && player.body.position) {
               direction.set(0, 0, 0);

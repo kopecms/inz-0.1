@@ -13,13 +13,17 @@ import Keyboard from './interface/keyboard';
 // TODO refactor
 var controllerData = {};
 
+Number.prototype.map = function (in_min, in_max, out_min, out_max) {
+  return (this - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+
 function getUsernameFromTemplate() {
   let username = $('#username').text().toLowerCase();
   if (username === '') {
     username = 'test' + Math.floor(Math.random()*100);
     $('#username').val(username);
   }
-  return username;
+  return 'pawel';
 }
 
 function getRoomNameFromTemplate() {
@@ -35,12 +39,10 @@ function initPeerJs(username) {
       path: '/peerjs',
       secure: true
     });
-    console.log(username)
     peer.on('connection', function (conn) {
-    console.log('sadas')
     conn.on('open', function () {
       conn.on('data', function (receiveData) {
-        console.log('Data recieved from mobile: ' + JSON.stringify(receiveData));
+        //console.log('Data recieved from mobile: ' + JSON.stringify(receiveData));
         // TODO refactor jak juz bedzie dzialac
         controllerData = receiveData;
       });
@@ -81,7 +83,7 @@ $(document).ready(() => {
   let animate = () => {
     Physic.update();
     Camera.update(MultiplayerManager.getPlayer(), controllerData);
-    MultiplayerManager.update();
+    MultiplayerManager.update(controllerData);
     MultiplayerManager.updateCoins();
     renderer.render(scene, camera);
     requestAnimationFrame(animate);

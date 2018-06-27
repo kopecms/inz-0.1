@@ -6,6 +6,7 @@ const Camera = (function () {
   let instance;
   let move = new THREE.Vector3(0, 0, 0);
   let previous = new THREE.Vector3(0, 0, 0);
+  let startAlpha = null;
 
   const createInstance = () => {
     return {
@@ -27,11 +28,31 @@ const Camera = (function () {
     },
     update(player, data) {
       if (player instanceof Player) {
+        // tyl przod
         player.cameraPosition.copy(instance.position);
         move.subVectors(player.mesh.position, previous);
         previous.copy(player.mesh.position);
         instance.position.addVectors(instance.position, move);
-        instance.lookAt(player.mesh.position);
+        instance.lookAt(player.mesh.position);        
+      }
+      if (data.hasOwnProperty('alpha')) {
+        if (startAlpha === null) {
+          startAlpha = data.alpha;
+        } else {
+          let angleDifference;
+          if (data.alpha > 180)
+            angleDifference =  startAlpha - data.alpha + 360
+          else 
+            angleDifference  = startAlpha - data.alpha;
+          angleDifference = angleDifference.map(-180,180, -Math.PI/12,Math.PI/12);
+          let s = Math.sin(angleDifference);
+          let c = Math.cos(angleDifference);
+          instance.position.subVectors(instance.position, player.mesh.position);
+          let pos = instance.position;
+          instance.position.set(pos.x * c - pos.z * s, pos.y, pos.x * s + pos.z * c);
+          instance.position.addVectors(instance.position, player.mesh.position);
+          instance.lookAt(player.mesh.position);   
+        }
       }
     }
   }

@@ -3,6 +3,7 @@ import nipplesjs from 'nipplejs';
 import GyroNorm from '../../node_modules/gyronorm/dist/gyronorm.complete';
 
 const pad = (function() {
+  let startAplha = 0;
 
   let data = {
     angle: {},
@@ -19,6 +20,12 @@ const pad = (function() {
   };
 
   return {
+    getStartAplha() {
+      return startAplha;
+    },
+    setStartAplha() {
+      startAplha = data.alpha;
+    },
     init() {
       let manager = nipplesjs.create({
         zone: document.getElementById('joystick'),
@@ -67,6 +74,7 @@ const pad = (function() {
     },
 
     getData() {
+      
       return data;
     },
 

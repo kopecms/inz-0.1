@@ -13,11 +13,14 @@ class Player {
     this.desirePosition.copy(position);
     this.desireVelocity = new THREE.Vector3(0, 0, 0);
     this.cameraPosition = new THREE.Vector3(0, 0, 0);
+
     this.direction = new THREE.Vector3(0, 0, 0);
     this.mesh = this._createMesh();
     this.body = this._createBody(position);
-
+    
     //
+    this.tmp = new THREE.Vector3(0, 0, 0);
+    this.tmp2 = new THREE.Vector3(0, 0, 0);
     this.direction = new THREE.Vector3(0, 0, 0);
     this.v = new THREE.Vector3(0, 0, 0);
     this.u = new THREE.Vector3(0, 0, 0);
@@ -41,7 +44,7 @@ class Player {
     cube.receiveShadow = true;
     let scene = Scene.getInstance();
     scene.add(cube);
-    return cube
+    return cube;
   }
   _createBody(position) {
     let shape = new CANNON.Sphere(5);
@@ -75,6 +78,22 @@ class Player {
   update(data) {
     this.direction.set(0, 0, 0);
     this.direction = this.direction.subVectors(this.mesh.position, this.cameraPosition).normalize();
+    if (data.hasOwnProperty('gamma') && data.hasOwnProperty('beta')) {
+          // vector postopadly (A,B) -> (-B,A)
+          this.tmp = this.direction;
+          this.tmp2.set(-this.tmp.z, 0, this.tmp.x);
+          let gammaMapped = data.gamma.map(-90, 90, 1, -1) +0.5;
+          let betaMapped = data.beta.map(-180, 180, -1, 1);
+          this.tmp.multiplyScalar((Math.sign(gammaMapped)*1 - gammaMapped) * config.game.player.speed);
+          if (Math.sign(gammaMapped) > 0) {
+            let betaMapped = data.beta.map(-180, 180, -1, 1);
+            this.tmp2.multiplyScalar( betaMapped * config.game.player.speed);
+          }
+          else {
+            this.tmp2.multiplyScalar(Math.sign(betaMapped) * (1 - Math.abs(betaMapped)) * config.game.player.speed);
+          }
+          this.body.velocity.set(this.tmp.x + this.tmp2.x, this.body.velocity.y, this.tmp.z + this.tmp2.z);
+    }
   }
   delete() {
     let scene = Scene.getInstance();

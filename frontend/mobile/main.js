@@ -1,12 +1,16 @@
 import $ from 'jquery';
-import Instascan from 'instascan';
 import pad from './pad';
 import peer from './peer';
+
+Number.prototype.map = function (in_min, in_max, out_min, out_max) {
+  return (this - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
 
 function getUsername() {
   const pathArray = window.location.pathname.split('/');
   return pathArray[2];
 }
+
 $(document).ready(() => {
   let username = getUsername();
   $("#start-game").click(() => {
@@ -15,23 +19,3 @@ $(document).ready(() => {
   pad.init(username);
   peer.init(username);
 });
-
-
-/* let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
-scanner.addListener('scan', function (content) {
-  console.log(content);
-  scanner.stop();
-  $('.scanner').addClass('unvisible');
-  $('.container').removeClass('unvisible');
-  pad.init();
-  peer.init(content);
-});
-Instascan.Camera.getCameras().then(function (cameras) {
-  if (cameras.length > 0) {
-    scanner.start(cameras[0]);
-  } else {
-    console.error('No cameras found.');
-  }
-}).catch(function (e) {
-  console.error(e);
-}); */

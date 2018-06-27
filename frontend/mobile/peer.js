@@ -18,6 +18,7 @@ const peer = (function() {
       $('#connected-container').css('display', 'none');
       $('#pad-container').css('display', 'inline');
       gameOn = true;
+      pad.setStartAplha();
     },
     init(id) {
       let peer = new Peer(id + '-mobile', {
