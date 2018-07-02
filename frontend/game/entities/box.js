@@ -35,6 +35,10 @@ class Box {
     this.body.position.set(x, y, z);
     this.mesh.position.set(x, y, z);
   }
+  setRotation(x, y, z) {
+    this.body.rotation.set(x, y, z);
+    this.mesh.rotation.set(x, y, z);
+  }
 }
 
 export default Box;

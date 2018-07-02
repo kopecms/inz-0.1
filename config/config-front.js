@@ -18,7 +18,7 @@ const config = {
   game: {
     font: '/fonts/Arial_Regular.json',
     player: {
-      speed: 60,
+      speed: 50, //150;
     },
     coin: {
       r: 4,

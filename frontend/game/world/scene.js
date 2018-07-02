@@ -1,7 +1,8 @@
 import * as THREE from 'three';
 import * as CANNON from 'cannon';
-import Box from '../entities/box'
+import Box from '../entities/box';
 import Physic from './physic';
+import FootballPitch from '../entities/football-pitch';
 
 const Scene = (() => {
 
@@ -52,25 +53,7 @@ const Scene = (() => {
     };
 
     const initEnviroment = () => {
-      let materialBlue = new THREE.MeshLambertMaterial({ color: 0x35a7ff });
-      let planeGeometry = new THREE.BoxGeometry(1000, 2, 1000);
-      let plane = new THREE.Mesh(planeGeometry, materialBlue);
-      plane.receiveShadow = true;
-      instance.add(plane);
-
-      var groundShape = new CANNON.Box(new CANNON.Vec3(500, 1, 500));
-      var groundBody = new CANNON.Body({
-        mass: 0,
-        shape: groundShape,
-        material: Physic.getMaterial('basicMaterial'),
-        collisionFilterGroup: 1,
-        collisionFilterMask: 1 | 2
-      });
-      var physic = Physic.getInstance();
-
-      physic.addBody(groundBody);
-
-      //Physic.addEntity(box);
+      let footbalPitch = new FootballPitch(5);
     }
 
     return {
