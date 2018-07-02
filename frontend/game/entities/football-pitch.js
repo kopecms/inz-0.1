@@ -17,10 +17,38 @@ class FootballPitch {
     this.h = 105*this.size;
     this.w = 68*this.size;
 
+    this.lowerBarrierH = 25;
 
     this._createFootballPitch();
     this._drawLines();
     this._drawGates();
+    this._createBarriers();
+  }
+  _createBarriers(){
+      //rigth
+      let boxUp = new Box(this.h, this.lowerBarrierH, 3, 0);
+      boxUp.mesh.rotateX(Math.PI/4);
+      boxUp.setRotation();
+      boxUp.setPosition(0, this.lowerBarrierH/2-4,this.w/2+this.lowerBarrierH/2*Math.cos(Math.PI/4)/2);
+      Physic.addEntity(boxUp);
+      //left
+      let leftBox = new Box(this.h, this.lowerBarrierH, 3, 0);
+      leftBox.mesh.rotateX(-Math.PI/4);
+      leftBox.setRotation();
+      leftBox.setPosition(0, this.lowerBarrierH/2-4,-this.w/2-this.lowerBarrierH/2*Math.cos(Math.PI/4)/2);
+      Physic.addEntity(leftBox);
+
+      let frontBox = new Box(3, this.lowerBarrierH, this.w, 0);
+      frontBox.mesh.rotateZ(-Math.PI/4);
+      frontBox.setRotation();
+      frontBox.setPosition(this.h/2+this.lowerBarrierH/2*Math.cos(Math.PI/4)/2, this.lowerBarrierH/2-4,0);
+      Physic.addEntity(frontBox);
+
+      let backBox = new Box(3, this.lowerBarrierH, this.w, 0);
+      backBox.mesh.rotateZ(Math.PI/4);
+      backBox.setRotation();
+      backBox.setPosition(-this.h/2-this.lowerBarrierH/2*Math.cos(Math.PI/4)/2, this.lowerBarrierH/2-4,0);
+      Physic.addEntity(backBox);
   }
   _drawGates() {
     this._drawGate(1);
