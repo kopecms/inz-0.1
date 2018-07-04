@@ -35,6 +35,7 @@ class Player {
     this.inAir = false;
     this.diving = false;
     Physic.addEntity(this);
+
   }
   _createMesh() {
     let geometry = new THREE.BoxGeometry(7, 7, 7);
@@ -53,7 +54,7 @@ class Player {
       mass: 1000,
       material: Physic.getMaterial('playerMaterial'),
       collisionFilterGroup: 2, // Put the box in group 2
-      collisionFilterMask: 1 // It ca
+      collisionFilterMask: 1 | 2 // It ca
     });
     body.addShape(shape);
     let physic = Physic.getInstance();

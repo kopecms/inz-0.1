@@ -3,6 +3,8 @@ import * as CANNON from 'cannon';
 import Box from '../entities/box';
 import Physic from './physic';
 import FootballPitch from '../entities/football-pitch';
+import config from '../../../config/config-common';
+
 
 const Scene = (() => {
 
@@ -53,8 +55,8 @@ const Scene = (() => {
     };
 
     const initEnviroment = () => {
-      let footbalPitch = new FootballPitch(5);
-    }
+      let footbalPitch = new FootballPitch(config.footballPitchSize);
+    };
 
     return {
       init: init,

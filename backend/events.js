@@ -26,7 +26,7 @@ module.exports = {
     });
   },
   onCoinCollected(io, client, data) {
-    console.log(data)
+    //console.log(data)
     let main = gameMain.getInstance();
     const { room, username } = connections[client.id];
     let game = main.getGame(room);
@@ -46,7 +46,9 @@ module.exports = {
     main.updatePlayer(room, username, data);
   },
   onCollision(client, data) {
-    console.log('collision');
+    let main = gameMain.getInstance();
+    const { room, username } = connections[client.id];
+    main.updateBall(room, username, data);
   },
   onShot(client, data) {
     console.log('shot');

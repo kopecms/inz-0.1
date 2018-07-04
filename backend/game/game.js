@@ -1,5 +1,6 @@
 const _ = require('lodash');
 const config = require('config');
+const World = require('./world');
 
 const vector = (x, y, z) => {
   return { x, y, z };
@@ -17,6 +18,7 @@ class Game {
     this.state = {};
     this.players = {};
     this.coins = {};
+    this.world = new World();
     _.assign(this.coins, this.generateCoins(config.get('game.initCoinsQuantity')));
   }
 
@@ -59,9 +61,21 @@ class Game {
     return this.coins;
   }
 
+  updateBallPosition(playerId, ballData) {
+    let player = this.players[playerId];
+    let ball = this.world.getBallInfo();
+    if (distance(player.position, ball.position) < config.get('game.validBallCollisionDistance')) {
+      this.world.makeCollision(null, ballData.velocity);
+      player.score += 1;
+      //console.log(this.players)
+    }
+  }
 
   getCurrentState() {
-    return this.players;
+    return {
+      ball: this.world.getBallInfo(),
+      players: this.players
+    };
   }
 
   createNewPlayer(id) {

@@ -14,5 +14,7 @@
     initCoinsQuantity: 10,
     coinsArea: 250,
     validCoinDistance: 10,
+    updateRate: 50,
+    validBallCollisionDistance: 20,
   }
 }

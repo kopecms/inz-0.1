@@ -11,7 +11,8 @@ import Coin from '../entities/coin';
 import { updatePlayerScore } from '../interface/score-table';
 
 const MultiplayerManager = (function () {
-  const game = { 
+  const game = {
+    ball: {},
     coins: [],
   };
   let coins = {};
@@ -39,7 +40,16 @@ const MultiplayerManager = (function () {
       coin.setPosition(Math.floor(Math.random()*coinsArea-coinsArea/2), 10, Math.floor(Math.random()*coinsArea-coinsArea/2))
     }
   };
+  const updateBall = (ballData) => {
+    if (game.ball) {
+      direction.set(0, 0, 0);
+      direction.subVectors(game.ball.body.position, ballData.position);
+      let velocity = direction.normalize().multiplyScalar(-1*getVector(ballData.velocity).length());
+      game.ball.body.velocity.copy(velocity);
+    }
+  };
   return {
+    ball: {},
     init() {
       window.setInterval(() => {
         socket.sendPlayerData(getPlayerData());
@@ -71,7 +81,8 @@ const MultiplayerManager = (function () {
       });
     },
     updateGameState(gameStateData){
-      gameState = gameStateData;
+      gameState = gameStateData.players;
+      updateBall(gameStateData.ball);
       updatePlayerScore(gameState);
     },
     updatePlayers(playersData) {

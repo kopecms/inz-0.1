@@ -2,7 +2,7 @@ import * as CANNON from 'cannon';
 import * as THREE from 'three';
 import Player from '../entities/player';
 import Camera from '../interface/camera';
-import initMaterials from './materials';
+import initMaterials from '../../../common/materials';
 import { inspect } from 'util';
 
 const Physic = (() => {

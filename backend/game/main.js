@@ -28,13 +28,16 @@ const gameMain = (function () {
         return games[room];
       },
       getPlayers(room) {
-        return games[room].getPlayers()
+        return games[room].getPlayers();
       },
       updatePlayer(room, id, data) {
         games[room].updatePlayerPosition(id, data);
       },
       removeUserFromGame(room, id) {
         delete games[room].players[id];
+      },
+      updateBall(room, playerId, ballData) {
+        games[room].updateBallPosition(playerId, ballData);
       }
     }
   }
@@ -43,7 +46,7 @@ const gameMain = (function () {
     getInstance() {
       if (!instance) {
         instance = createInstance();
-        instance.init()
+        instance.init();
       }
       return instance;
     },

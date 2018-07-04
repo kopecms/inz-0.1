@@ -7,8 +7,9 @@ import MultiplayerManager from './world/manager';
 import Camera from './interface/camera';
 import Scene from './world/scene';
 import Physic from './world/physic';
-import Box from './entities/box';
+import Ball from './entities/ball';
 import Keyboard from './interface/keyboard';
+import * as configCommon from '../../config/config-common';
 
 // TODO refactor
 var controllerData = {};
@@ -23,7 +24,7 @@ function getUsernameFromTemplate() {
     username = 'test' + Math.floor(Math.random()*100);
     $('#username').val(username);
   }
-  return 'pawel';
+  return username;
 }
 
 function getRoomNameFromTemplate() {
@@ -76,12 +77,16 @@ $(document).ready(() => {
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   document.body.appendChild(renderer.domElement);
 
-  let box = new Box(10, 10, 10, 1);
-  box.setPosition(0, 50, 0);
-  Physic.addEntity(box);
+  let ball = new Ball(configCommon.ballSize, 1);
+  ball.setPosition(0, 50, 0);
+  Physic.addEntity(ball);
+  game.ball = ball;
+
+  setInterval(() => {
+    Physic.update();
+  }, 50);
 
   let animate = () => {
-    Physic.update();
     Camera.update(MultiplayerManager.getPlayer(), controllerData);
     MultiplayerManager.update(controllerData);
     MultiplayerManager.updateCoins();
