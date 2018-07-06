@@ -5,6 +5,7 @@ import Scene from '../world/scene';
 import Physic from '../world/physic';
 import Box from './box';
 import config from '../../../config/config-front';
+import * as commonConfig from '../../../config/config-common';
 
 class FootballPitch {
   constructor(size, color) {
@@ -51,19 +52,19 @@ class FootballPitch {
       Physic.addEntity(backBox);
   }
   _drawGates() {
-    this._drawGate(1);
-    this._drawGate(-1);
+    this._drawGate(1, config.colors.blue);
+    this._drawGate(-1, config.colors.red);
     }
-  _drawGate(site) {
+  _drawGate(site, color) {
     this.gh = 5.5*this.size;
     this.gw = 16*this.size;
-    let boxUp = new Box(this.gateW, this.gateW, this.gw+this.gateW, 0);
+    let boxUp = new Box(this.gateW, this.gateW, this.gw+this.gateW, 0, color);
     boxUp.setPosition(site*this.h/2-site*this.margin,this.gh+2,0);
     Physic.addEntity(boxUp);
-    let boxRight = new Box(this.gateW, this.gh, this.gateW, 0);
+    let boxRight = new Box(this.gateW, this.gh, this.gateW, 0, color);
     boxRight.setPosition(site*this.h/2-site*this.margin,(this.gh+4)/2,-this.gw/2);
     Physic.addEntity(boxRight);
-    let boxLeft = new Box(this.gateW, this.gh, this.gateW, 0);
+    let boxLeft = new Box(this.gateW, this.gh, this.gateW, 0, color);
     boxLeft.setPosition(site*this.h/2-site*this.margin,(this.gh+4)/2,this.gw/2);
     Physic.addEntity(boxLeft);
   }

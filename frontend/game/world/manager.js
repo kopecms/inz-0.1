@@ -8,7 +8,9 @@ import Settings from '../interface/settings';
 import socket from '../interface/socket';
 import config from '../../../config/config-front';
 import Coin from '../entities/coin';
-import { updatePlayerScore } from '../interface/score-table';
+import { updatePlayerScore, updateMatchScore } from '../interface/score-table';
+import utils from '../../../common/utils';
+
 
 const MultiplayerManager = (function () {
   const game = {
@@ -41,11 +43,17 @@ const MultiplayerManager = (function () {
     }
   };
   const updateBall = (ballData) => {
-    if (game.ball) {
-      direction.set(0, 0, 0);
-      direction.subVectors(game.ball.body.position, ballData.position);
-      let velocity = direction.normalize().multiplyScalar(-1*getVector(ballData.velocity).length());
-      game.ball.body.velocity.copy(velocity);
+    if (game.ball !== {}) {
+      if (game.ball.position && ballData.position &&
+          utils.distance(game.ball.position, ballData.position) < config.game.ball.maxDistanceDifference) {
+        direction.set(0, 0, 0);
+        direction.subVectors(game.ball.body.position, ballData.position);
+        let velocity = direction.normalize().multiplyScalar(-1*getVector(Math.pow((ballData.velocity).length(),3)));
+        game.ball.body.velocity.copy(velocity);
+      } else {
+        game.ball.body.position.copy(ballData.position);
+        game.ball.body.velocity.copy(ballData.velocity);
+      }
     }
   };
   return {
@@ -83,7 +91,8 @@ const MultiplayerManager = (function () {
     updateGameState(gameStateData){
       gameState = gameStateData.players;
       updateBall(gameStateData.ball);
-      updatePlayerScore(gameState);
+      updateMatchScore(gameStateData.score);
+      updatePlayerScore(gameStateData.players);
     },
     updatePlayers(playersData) {
       _.forOwn(playersData, function (data, id) {

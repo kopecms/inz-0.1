@@ -1,6 +1,6 @@
 const config = {
     footballPitchSize: 4,
-    ballSize: 16,
+    ballSize: 8,
 };
 
 module.exports = config;

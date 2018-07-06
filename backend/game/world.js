@@ -3,7 +3,8 @@ const config = require('config');
 const configCommon = require('../../config/config-common');
 const initMaterials = require('../../common/materials');
 class World {
-  constructor() {
+  constructor(game) {
+    this.game = game;
     this.timeStep = 1/60;
     this.instance = new CANNON.World();
     this.instance.gravity.set(0, -100, 0);
@@ -23,8 +24,11 @@ class World {
     this.instance.addBody(this.body);
     this.body.position.set(0, 50, 0);
 
-    this.h = 105*configCommon.footballPitchSize;
-    this.w = 68*configCommon.footballPitchSize;
+    this.h = 105 * configCommon.footballPitchSize;
+    this.w = 68 * configCommon.footballPitchSize;
+    this.gateH = 5.5 * configCommon.footballPitchSize;
+    this.gateW = 16 * configCommon.footballPitchSize;
+    
     let groundShape = new CANNON.Box(new CANNON.Vec3(this.h/2, 1, this.w/2));
     let groundBody = new CANNON.Body({
       mass: 0,
@@ -39,12 +43,28 @@ class World {
     this.makeWall(0, this.wallH/2, -this.w/2, this.h, this.wallH , 1);
     this.makeWall(this.h/2, this.wallH/2, 0, 1, this.wallH , this.h);
     this.makeWall(-this.h/2, this.wallH/2, 0, 1, this.wallH , this.h);
+
+    const handleGoalRed = (e) => {
+        handleGoal(e, 'red');
+    };
+    const handleGoalBlue = (e) => {
+        handleGoal(e, 'blue');
+    };
+    const handleGoal = (e, who) => {
+        if (e.body.id === this.body.id) {
+            this.game.score[who] += 1;
+            this.body.position.set(0, 50, 0);
+            this.body.velocity.set(0, 0, 0);
+        }
+    };
+    let margin = 0.3;
+    this.gateRed = this.makeWall(this.h/2-margin, this.gateH/2, 0, 1, this.gateH, this.gateW);
+    this.gateRed.addEventListener('collide', handleGoalRed);
+    this.gateBlue = this.makeWall(-this.h/2+margin, this.gateH/2, 0, 1, this.gateH, this.gateW);
+    this.gateBlue.addEventListener('collide', handleGoalBlue);
     setInterval(() => {
         this.instance.step(this.timeStep);
     }, config.get('game.updateRate'));
-    setInterval(() => {
-        console.log(this.body.position)
-    }, 500);
   }
 
   makeWall(p,q,w,x,y,z) {
@@ -58,6 +78,7 @@ class World {
     });
     wall.position.set(p,q,w);
     this.instance.addBody(wall);
+    return wall;
   }
 
   getBallInfo() {
@@ -75,7 +96,6 @@ class World {
     this.body.velocity.x += velocity.x;
     this.body.velocity.y += velocity.y;
     this.body.velocity.z += velocity.z;
-    console.log(this.body.velocity, velocity)
   }
 
   sumVectors(p, q) {

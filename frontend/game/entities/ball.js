@@ -48,7 +48,7 @@ class Ball {
   getKickDirection(p, q) {
     let direction = new THREE.Vector3(0,0,0);
     direction.subVectors(p.position, q.position);
-    return direction.normalize().multiplyScalar(50);
+    return direction.normalize().multiplyScalar(50 + p.velocity.length());
   }
   sumVectors(p, q) {
     return {

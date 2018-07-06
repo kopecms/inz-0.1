@@ -18,7 +18,11 @@ class Game {
     this.state = {};
     this.players = {};
     this.coins = {};
-    this.world = new World();
+    this.score = {
+      red: 0,
+      blue: 0,
+    }
+    this.world = new World(this);
     _.assign(this.coins, this.generateCoins(config.get('game.initCoinsQuantity')));
   }
 
@@ -73,6 +77,7 @@ class Game {
 
   getCurrentState() {
     return {
+      score: this.score,
       ball: this.world.getBallInfo(),
       players: this.players
     };

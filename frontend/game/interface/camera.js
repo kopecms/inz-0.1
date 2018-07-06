@@ -44,7 +44,8 @@ const Camera = (function () {
             angleDifference =  startAlpha - data.alpha + 360
           else 
             angleDifference  = startAlpha - data.alpha;
-          angleDifference = angleDifference.map(-180,180, -Math.PI/12,Math.PI/12);
+          angleDifference = angleDifference.map(-180,180, -Math.PI/4,Math.PI/4);
+          angleDifference = Math.sign(angleDifference) * Math.pow(angleDifference, 2);
           let s = Math.sin(angleDifference);
           let c = Math.cos(angleDifference);
           instance.position.subVectors(instance.position, player.mesh.position);

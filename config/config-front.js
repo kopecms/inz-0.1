@@ -16,9 +16,13 @@ const config = {
     green: 0xcaff70,
   },
   game: {
+    ball: {
+      maxDistanceDifference: 50,
+    },
     font: '/fonts/Arial_Regular.json',
     player: {
-      speed: 50, //150;
+      speed: 150,
+      maxDistanceDifference: 30,
     },
     coin: {
       r: 4,

@@ -5,7 +5,7 @@ import _ from 'lodash';
 var options = {
     valueNames: [ 'player', 'score' ],
     item: '<li><div class="player"></div><span class="score"></span></li>'
-  };
+};
 
 var userList = new List('info-players', options);
 
@@ -36,4 +36,9 @@ function updatePlayerScore(gameState) {
     userList.sort('score', { order: 'desc' });
 }
 
-export {addToScoreTable, removeFromScoreTable, updatePlayerScore};
+function updateMatchScore(scores) {
+    $('#red-score').text(scores.red);
+    $('#blue-score').text(scores.blue);
+}
+
+export {addToScoreTable, removeFromScoreTable, updatePlayerScore, updateMatchScore};

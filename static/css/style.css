@@ -122,6 +122,23 @@ textarea {
 #connected-container {
   text-align: center;
 }
+#match-score {
+  width: 10%;
+  font-size: 4em;
+  margin-top: 1em;
+  position: fixed;
+  right: 45%;
+  left: 45%;
+}
+#blue-score {
+  display: inline-block;
+  width: 50%;
+  color: #35a7ff
+}
+#red-score {
+  color: #ff5964;
+  float: right
+}
 @media only screen and (max-width: 600px) {
   #mobile-join {
     display: block;
