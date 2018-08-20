@@ -79,10 +79,15 @@ const MultiplayerManager = (function () {
             player.update(controllerData);
           } else {
             if (gameState[id] && gameState[id].position && player.body.position) {
-              direction.set(0, 0, 0);
-              direction.subVectors(gameState[id].position, player.body.position);
-              let velocity = direction.normalize().multiplyScalar(getVector(gameState[id].velocity).length());
-              player.body.velocity.copy(velocity);
+              if (utils.distance(gameState[id].position, player.body.position) < config.game.player.maxDistanceDifference) {
+                direction.set(0, 0, 0);
+                direction.subVectors(gameState[id].position, player.body.position);
+                let velocity = direction.normalize().multiplyScalar(Math.pow(getVector(gameState[id].velocity).length(),1));
+                player.body.velocity.copy(velocity);
+              } else {
+                player.body.position.copy(gameState[id].position);
+                player.body.velocity.copy(gameState[id].velocity); 
+              }
             }
           }
         }

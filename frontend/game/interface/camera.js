@@ -39,20 +39,22 @@ const Camera = (function () {
         if (startAlpha === null) {
           startAlpha = data.alpha;
         } else {
-          let angleDifference;
-          if (data.alpha > 180)
-            angleDifference =  startAlpha - data.alpha + 360
-          else 
-            angleDifference  = startAlpha - data.alpha;
-          angleDifference = angleDifference.map(-180,180, -Math.PI/4,Math.PI/4);
-          angleDifference = Math.sign(angleDifference) * Math.pow(angleDifference, 2);
-          let s = Math.sin(angleDifference);
-          let c = Math.cos(angleDifference);
-          instance.position.subVectors(instance.position, player.mesh.position);
-          let pos = instance.position;
-          instance.position.set(pos.x * c - pos.z * s, pos.y, pos.x * s + pos.z * c);
-          instance.position.addVectors(instance.position, player.mesh.position);
-          instance.lookAt(player.mesh.position);   
+          if (data.gamma < 45) {
+            let angleDifference;
+            if (data.alpha > 180)
+              angleDifference =  startAlpha - data.alpha + 360
+            else 
+              angleDifference  = startAlpha - data.alpha;
+            angleDifference = angleDifference.map(-180,180, -Math.PI/4,Math.PI/4);
+            angleDifference = Math.sign(angleDifference) * Math.pow(angleDifference, 2);
+            let s = Math.sin(angleDifference);
+            let c = Math.cos(angleDifference);
+            instance.position.subVectors(instance.position, player.mesh.position);
+            let pos = instance.position;
+            instance.position.set(pos.x * c - pos.z * s, pos.y, pos.x * s + pos.z * c);
+            instance.position.addVectors(instance.position, player.mesh.position);
+            instance.lookAt(player.mesh.position);
+          } 
         }
       }
     }

@@ -10,7 +10,7 @@ import Physic from './world/physic';
 import Ball from './entities/ball';
 import Keyboard from './interface/keyboard';
 import * as configCommon from '../../config/config-common';
-
+import Stats from 'stats-js';
 // TODO refactor
 var controllerData = {};
 
@@ -85,12 +85,24 @@ $(document).ready(() => {
   setInterval(() => {
     Physic.update();
   }, 50);
+  let stats = new Stats();
+  stats.setMode(1);
+ 
+  // Align top-left
+  stats.domElement.style.position = 'absolute';
+  stats.domElement.style.left = '0px';
+  stats.domElement.style.top = '0px';
+  
+  document.body.appendChild( stats.domElement );
 
   let animate = () => {
+
+	  stats.begin();
     Camera.update(MultiplayerManager.getPlayer(), controllerData);
     MultiplayerManager.update(controllerData);
     MultiplayerManager.updateCoins();
     renderer.render(scene, camera);
+	  stats.end();
     requestAnimationFrame(animate);
   };
   animate();

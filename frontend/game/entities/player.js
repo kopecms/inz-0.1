@@ -83,11 +83,12 @@ class Player {
           // vector postopadly (A,B) -> (-B,A)
           this.tmp = this.direction;
           this.tmp2.set(-this.tmp.z, 0, this.tmp.x);
-          let gammaMapped = data.gamma.map(-90, 90, 1, -1) +0.5;
-          let betaMapped = data.beta.map(-180, 180, -1, 1);
+          let gammaMapped = data.gamma.map(-90, 90, 1, -1) 
+          gammaMapped = Math.sign(gammaMapped) * Math.pow(gammaMapped, 2) + 0.5;
           this.tmp.multiplyScalar((Math.sign(gammaMapped)*1 - gammaMapped) * config.game.player.speed);
+          let betaMapped = data.beta.map(-180, 180, -1, 1);
+          betaMapped = Math.sign(betaMapped) * Math.pow(betaMapped*2, 2)
           if (Math.sign(gammaMapped) > 0) {
-            let betaMapped = data.beta.map(-180, 180, -1, 1);
             this.tmp2.multiplyScalar( betaMapped * config.game.player.speed);
           }
           else {

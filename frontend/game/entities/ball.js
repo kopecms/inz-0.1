@@ -6,6 +6,7 @@ import Physic from '../world/physic';
 
 import socket from '../interface/socket';
 import config from '../../../config/config-front';
+import MultiplayerManager from '../world/manager';
 
 class Ball {
   constructor(size, mass=1, color=config.colors.red, physicMaterial=Physic.getMaterial('basicMaterial')) {
@@ -35,9 +36,8 @@ class Ball {
   }
   setEvents() {
     this.body.addEventListener("collide",(e) => {
-      //console.log(e.body)
-      // TODO 12 player id (moze siie zmienic)
-      if (e.body.id === 12) {
+      let player = MultiplayerManager.getPlayer();
+      if (e.body.id === player.body.id) {
         socket.send('collision', {
           position: this.body.position,
           velocity: this.getKickDirection(this.body, e.body),
@@ -49,13 +49,6 @@ class Ball {
     let direction = new THREE.Vector3(0,0,0);
     direction.subVectors(p.position, q.position);
     return direction.normalize().multiplyScalar(50 + p.velocity.length());
-  }
-  sumVectors(p, q) {
-    return {
-        x: p.x + q.x,
-        y: p.y + q.y,
-        z: p.z + q.z,
-      }
   }
   setPosition(x, y, z) {
     this.body.position.set(x, y, z);
