@@ -11,8 +11,8 @@
     updateRate: 100,
   },
   game: {
-    initCoinsQuantity: 10,
-    coinsArea: 250,
+    initBonusQuantity: 10,
+    bonusArea: 250,
     validCoinDistance: 10,
     updateRate: 50,
     validBallCollisionDistance: 20,

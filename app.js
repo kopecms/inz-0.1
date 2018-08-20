@@ -8,7 +8,7 @@ const http = require('http');
 const https = require('https');
 
 const views = require('./backend/views');
-const socket = require('./backend/socket');
+const socket = require('./backend/socket-events');
 
 const ExpressPeerServer = require('peer').ExpressPeerServer;
 const app = express();

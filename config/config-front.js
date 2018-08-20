@@ -22,7 +22,7 @@ const config = {
     font: '/fonts/Arial_Regular.json',
     player: {
       speed: 150,
-      maxDistanceDifference: 30,
+      maxDistanceDifference: 100,
     },
     coin: {
       r: 4,
