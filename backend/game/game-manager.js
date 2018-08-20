@@ -5,19 +5,17 @@ const Game = require('./game');
 //TODO games
 
 
-const gameMain = (function () {
+const GameManager = (function () {
 
   let instance;
   let games = {}
 
   const createInstance = () => {
     return {
-      init() {
-      },
       addUserToGame(room, username) {
         if (!has(games, room)) {
           console.log('new game');
-          games[room] = new Game(room);
+          games[room] = new Game();
         }
         games[room].createNewPlayer(username);
       },
@@ -33,7 +31,7 @@ const gameMain = (function () {
       updatePlayer(room, id, data) {
         games[room].updatePlayerPosition(id, data);
       },
-      removeUserFromGame(room, id) {
+      removePlayerFromGame(room, id) {
         delete games[room].players[id];
       },
       updateBall(room, playerId, ballData) {
@@ -46,11 +44,10 @@ const gameMain = (function () {
     getInstance() {
       if (!instance) {
         instance = createInstance();
-        instance.init();
       }
       return instance;
     },
   }
 })();
 
-module.exports = gameMain;
+module.exports = GameManager;

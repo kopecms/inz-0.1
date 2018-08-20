@@ -45,17 +45,10 @@ class World {
     this.makeWall(-this.h/2, this.wallH/2, 0, 1, this.wallH , this.h);
 
     const handleGoalRed = (e) => {
-        handleGoal(e, 'red');
+        this.handleGoal(e, 'red');
     };
     const handleGoalBlue = (e) => {
-        handleGoal(e, 'blue');
-    };
-    const handleGoal = (e, who) => {
-        if (e.body.id === this.body.id) {
-            this.game.score[who] += 1;
-            this.body.position.set(0, 50, 0);
-            this.body.velocity.set(0, 0, 0);
-        }
+        this.handleGoal(e, 'blue');
     };
     let margin = 0.3;
     this.gateRed = this.makeWall(this.h/2-margin, this.gateH/2, 0, 1, this.gateH, this.gateW);
@@ -66,6 +59,14 @@ class World {
         this.instance.step(this.timeStep);
     }, config.get('game.updateRate'));
   }
+
+  handleGoal(collideWith, whoScored) {
+        if (e.body.id === this.body.id) {
+            this.game.score[whoScored] += 1;
+            this.body.position.set(0, 50, 0);
+            this.body.velocity.set(0, 0, 0);
+        }
+    }
 
   makeWall(p,q,w,x,y,z) {
     let wallShape = new CANNON.Box(new CANNON.Vec3(x/2, y/2, z/2));
@@ -93,12 +94,12 @@ class World {
   }
 
   makeCollision(position, velocity) {
-    this.body.velocity.x += velocity.x;
-    this.body.velocity.y += velocity.y;
-    this.body.velocity.z += velocity.z;
+    this.body.velocity.x += 2*velocity.x;
+    this.body.velocity.y += 2*velocity.y;
+    this.body.velocity.z += 2*velocity.z;
   }
 
-  sumVectors(p, q) {
+  sumVectorsw(p, q) {
       return {
         x: p.x + q.x,
         y: p.y + q.y,

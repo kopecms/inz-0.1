@@ -1,7 +1,7 @@
 const _ = require('lodash');
 const config = require('config');
-const events = require('./events');
-const gameMain = require('./game/main')
+const events = require('./event-manager');
+const GameManager = require('./game/game-manager');
 //TODO games
 
 games = {}
@@ -21,18 +21,16 @@ const socket = (function () {
   return {
     init(io) {
       ioInstance = io;
-      main = gameMain.getInstance();
+      main = GameManager.getInstance();
       io.on('connection', client => {
         console.log('New player connected: ' + client.id);
 
         setupDataBroadcasting()
 
-        client.on('joined', data => events.onJoin(io, client, data))
-        client.on('hello', data => events.onHello(client, data));
+        client.on('joined', data => events.onJoin(io, client, data));
         client.on('playerData', data => events.onPlayerData(client, data));
         client.on('collision', data => events.onCollision(client, data));
         client.on('coinCollected', data => events.onCoinCollected(io, client, data));
-        client.on('shot', data => events.onShot(client, data));
         client.on('disconnect', () => events.onDisconnect(io, client));
 
 

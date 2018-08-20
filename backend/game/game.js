@@ -13,17 +13,16 @@ const distance = (p, q) => {
 const randomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
 class Game {
-  constructor(room) {
-    this.room = room;
+  constructor() {
     this.state = {};
     this.players = {};
-    this.coins = {};
+    this.bonuses = {};
     this.score = {
       red: 0,
       blue: 0,
     }
     this.world = new World(this);
-    _.assign(this.coins, this.generateCoins(config.get('game.initCoinsQuantity')));
+    _.assign(this.bonuses, this.generateBonuses(config.get('game.initBonusQuantity')));
   }
 
   updatePlayerPosition(id, data) {
@@ -34,17 +33,17 @@ class Game {
     }
   }
 
-  generateCoins(quantity){
-    let coins = {};
-    let coinsArea = config.get('game.coinsArea');
+  generateBonuses(quantity){
+    let bonuses = {};
+    let bonusesArea = config.get('game.bonusArea');
     for (let i = 0; i < quantity; ++i) {
-      this.coins[Game.incrementId()] = {
-        x: Math.floor(Math.random()*coinsArea-coinsArea/2),
+      this.bonuses[Game.incrementId()] = {
+        x: Math.floor(Math.random()*bonusesArea-bonusesArea/2),
         y: 10,
-        z: Math.floor(Math.random()*coinsArea-coinsArea/2),
+        z: Math.floor(Math.random()*bonusesArea-bonusesArea/2),
       };
     }
-    return coins;
+    return bonuses;
   }
 
   static incrementId() {
@@ -53,16 +52,16 @@ class Game {
     return this.latestId;
   }
   
-  coinCollected(playerId, coinId) {
-    if (this.coins[coinId]) {
-      let coin = this.coins[coinId];
+  bonusCollected(playerId, coinId) {
+    if (this.bonuses[coinId]) {
+      let coin = this.bonuses[coinId];
       let player = this.players[playerId];
       if (distance(player.position, coin) < config.get('game.validCoinDistance')) {
         player.score += 10;
-        delete this.coins[coinId];
+        delete this.bonuses[coinId];
       }
     }
-    return this.coins;
+    return this.bonuses;
   }
 
   updateBallPosition(playerId, ballData) {
