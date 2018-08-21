@@ -20,9 +20,8 @@ module.exports = {
       let game = main.getGame(room);
       io.to(room).emit(
         'coinsState',
-        game.coins
+        game.bonuses
       );
-      console.log(game.coins);
     });
   },
   onCoinCollected(io, client, data) {

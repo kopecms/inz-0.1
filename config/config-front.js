@@ -9,11 +9,11 @@ const config = {
   },
   colors: {
     darkBlue: 0x38618c,
-    blue: 0x35a7ff,
+    blue:  0xcaff70,
     white: 0xf6f6f6,
     red: 0xff5964,
     yellow: 0xffe74c,
-    green: 0xcaff70,
+    green: 0x35a7ff,
   },
   game: {
     ball: {

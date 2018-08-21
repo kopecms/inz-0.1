@@ -37,10 +37,10 @@ body{
 .login-container {
   position: relative;
   top: 20%;
-  left: 25%;
+  left: 35%;
 }
 .login-segment {
-  width: 50%;
+  width: 30%;
   top: 25%;
 }
 .qrcode img {
@@ -107,6 +107,8 @@ textarea {
   border: 1px solid  rgba(0, 0, 0, 0.3);
   background-color: white;
   text-transform: uppercase;
+  font-weight: 800;
+  color: rgba(0,0,0,0.8);
   padding: 4px;
 }
 .score {
@@ -156,7 +158,7 @@ textarea {
 #blue-score {
   display: inline-block;
   width: 50%;
-  color: #35a7ff
+  color: #caff70
 }
 #red-score {
   color: #ff5964;

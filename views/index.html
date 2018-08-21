@@ -27,6 +27,16 @@
         <a id="mobile-join" class="ui button">Connect</a>
       </div>
     </div>
+    <div id="login-container" class="login-container" style="margin-top: 20px">
+      <div class="login-segment ui segment">
+        <h4 class="ui header">Open rooms:</h4>
+        <div class="ui bulleted list">
+        {{#gamesList}}
+        <div class="item">{{.}}</div>
+        {{/gamesList}}
+        </div>
+      </div>
+    </div>
     <script src="dist/index-bundle.js"></script>
   </body>
 </html>

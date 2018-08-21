@@ -60,6 +60,9 @@ const Keyboard = (() => {
         instance.registerKey(32, null, (data) => {
           MultiplayerManager.getPlayer().body.velocity.y = 100;
         });
+        instance.registerKey(88, null, (data) => {
+          MultiplayerManager.getPlayer().body.velocity.set(0,0,0);
+        });
       }
       return instance;
     }

@@ -61,7 +61,7 @@ class World {
   }
 
   handleGoal(collideWith, whoScored) {
-        if (e.body.id === this.body.id) {
+        if (collideWith.body.id === this.body.id) {
             this.game.score[whoScored] += 1;
             this.body.position.set(0, 50, 0);
             this.body.velocity.set(0, 0, 0);

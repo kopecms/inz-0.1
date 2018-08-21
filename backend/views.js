@@ -1,3 +1,5 @@
+const GameManager = require('./game/game-manager');
+
 const views = (function () {
 
   const randomInt = () => {
@@ -7,7 +9,10 @@ const views = (function () {
   return {
     init(app) {
       app.get('/', (req, res, next) => {
-        res.render('index', {});
+        let gamesList = Object.keys(GameManager.getGames());
+        res.render('index', {
+          gamesList,
+        });
       });
       app.post('/', (req, res) => {
         req.session.room = req.body.room;

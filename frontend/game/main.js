@@ -85,24 +85,24 @@ $(document).ready(() => {
   setInterval(() => {
     Physic.update();
   }, 50);
-  let stats = new Stats();
+  /* let stats = new Stats();
   stats.setMode(1);
  
   // Align top-left
   stats.domElement.style.position = 'absolute';
   stats.domElement.style.left = '0px';
-  stats.domElement.style.top = '0px';
+  stats.domElement.style.top = '0px'; */
   
-  document.body.appendChild( stats.domElement );
+  //document.body.appendChild( stats.domElement );
 
   let animate = () => {
 
-	  stats.begin();
+	  //stats.begin();
     Camera.update(MultiplayerManager.getPlayer(), controllerData);
     MultiplayerManager.update(controllerData);
     MultiplayerManager.updateCoins();
     renderer.render(scene, camera);
-	  stats.end();
+	  //stats.end();
     requestAnimationFrame(animate);
   };
   animate();

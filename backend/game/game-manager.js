@@ -8,7 +8,7 @@ const Game = require('./game');
 const GameManager = (function () {
 
   let instance;
-  let games = {}
+  let games = {};
 
   const createInstance = () => {
     return {
@@ -37,8 +37,8 @@ const GameManager = (function () {
       updateBall(room, playerId, ballData) {
         games[room].updateBallPosition(playerId, ballData);
       }
-    }
-  }
+    };
+  };
 
   return {
     getInstance() {
@@ -47,7 +47,10 @@ const GameManager = (function () {
       }
       return instance;
     },
-  }
+    getGames() {
+      return games;
+    },
+  };
 })();
 
 module.exports = GameManager;
