@@ -51,7 +51,7 @@ class Player {
     let shape = new CANNON.Sphere(5);
     let body = new CANNON.Body({
       position: position,
-      mass: 1000,
+      mass: 100,
       material: Physic.getMaterial('playerMaterial'),
       collisionFilterGroup: 2, // Put the box in group 2
       collisionFilterMask: 1 | 2 // It ca
@@ -77,6 +77,10 @@ class Player {
     return mesh;
   }
   update(data) {
+    if (this.body.position.y < -50) {
+      this.body.position.set(0, 50, 0);
+      this.body.velocity.set(0, 0, 0);
+    }
     this.direction.set(0, 0, 0);
     this.direction = this.direction.subVectors(this.mesh.position, this.cameraPosition).normalize();
     if (data.hasOwnProperty('gamma') && data.hasOwnProperty('beta')) {
@@ -94,7 +98,22 @@ class Player {
           else {
             this.tmp2.multiplyScalar(Math.sign(betaMapped) * (1 - Math.abs(betaMapped)) * config.game.player.speed);
           }
-          this.body.velocity.set(this.tmp.x + this.tmp2.x, this.body.velocity.y, this.tmp.z + this.tmp2.z);
+          let x = this.tmp.x + this.tmp2.x;
+          let z = this.tmp.z + this.tmp2.z;
+          if (x && Math.abs(x) < config.game.player.speed && z && Math.abs(z) < config.game.player.speed)
+            this.body.velocity.set(x, this.body.velocity.y, z);
+    }
+    if (data.hasOwnProperty('diving') && !this.diving && this.inAir && data.diving) {
+      this.diving = true;
+      this.body.velocity.y = -100;
+    }
+    if (data.hasOwnProperty('jump') && !this.inAir && data.jump) {
+      this.inAir = true;
+      this.body.velocity.y = 100;
+    }
+    if (Math.abs(this.body.velocity.y) < 0.1) {
+      this.inAir = false;
+      this.diving = false;
     }
   }
   delete() {

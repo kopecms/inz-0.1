@@ -15,7 +15,7 @@ const Physic = (() => {
   const createInstance = () => {
     const init = () => {
       instance = new CANNON.World();
-      instance.gravity.set(0, -100, 0);
+      instance.gravity.set(0, -200, 0);
       instance.broadphase = new CANNON.NaiveBroadphase();
       instance.solver.iterations = 10;
       initMaterials(instance, materials);

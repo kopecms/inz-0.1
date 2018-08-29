@@ -69,8 +69,8 @@ $(document).ready(() => {
   Keyboard.getInstance();
 
   let renderer = new THREE.WebGLRenderer({
-    alpha: true,
-    antialias: true
+    /* alpha: true,
+    antialias: true */
   });
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.shadowMap.enabled = true;

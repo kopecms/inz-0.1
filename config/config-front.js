@@ -17,11 +17,11 @@ const config = {
   },
   game: {
     ball: {
-      maxDistanceDifference: 50,
+      maxDistanceDifference: 100,
     },
     font: '/fonts/Arial_Regular.json',
     player: {
-      speed: 150,
+      speed: 300,
       maxDistanceDifference: 100,
     },
     coin: {

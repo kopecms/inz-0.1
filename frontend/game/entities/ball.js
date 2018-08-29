@@ -9,7 +9,7 @@ import config from '../../../config/config-front';
 import MultiplayerManager from '../world/manager';
 
 class Ball {
-  constructor(size, mass=1, color=config.colors.red, physicMaterial=Physic.getMaterial('basicMaterial')) {
+  constructor(size, mass=1, color=config.colors.red, physicMaterial=Physic.getMaterial('trampolineMaterial')) {
     var geometry = new THREE.SphereGeometry( size, 10, 10 );
     var material = new THREE.MeshLambertMaterial( {color: color} );
     var sphere = new THREE.Mesh( geometry, material );
@@ -21,7 +21,7 @@ class Ball {
 
     let shape = new CANNON.Sphere(size);
     let body = new CANNON.Body({
-      mass: mass,
+      mass: 100,
       material: physicMaterial,
       collisionFilterGroup: 1,
       collisionFilterMask: 1 | 2

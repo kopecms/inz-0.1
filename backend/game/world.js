@@ -7,7 +7,7 @@ class World {
     this.game = game;
     this.timeStep = 1/60;
     this.instance = new CANNON.World();
-    this.instance.gravity.set(0, -100, 0);
+    this.instance.gravity.set(0, -200, 0);
     this.instance.broadphase = new CANNON.NaiveBroadphase();
     this.instance.solver.iterations = 10;
     this.materials = {};
@@ -15,8 +15,8 @@ class World {
 
     let shape = new CANNON.Sphere(configCommon.ballSize);
     this.body = new CANNON.Body({
-      mass: 1,
-      material: this.materials.physicMaterial,
+      mass: 100,
+      material: this.materials.trampolineMaterial,
       collisionFilterGroup: 1,
       collisionFilterMask: 1 | 2
     });

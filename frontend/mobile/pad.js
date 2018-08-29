@@ -14,6 +14,8 @@ const pad = (function() {
     alpha: 0,
     beta: 0,
     gamma: 0,
+    jump: false,
+    diving: false,
     gx: 0,
     gy: 0,
     gz: 0,
@@ -64,7 +66,6 @@ const pad = (function() {
           data.gx = dataGyro.dm.gx;
           data.gy = dataGyro.dm.gy;
           data.gz = dataGyro.dm.gz;
-          $('#gyro').text(JSON.stringify(dataGyro));
         });
       }).catch((e) => {
         logger('Error GyroNorm: ' + e, 'errors');
@@ -82,6 +83,8 @@ const pad = (function() {
       data.angle = {};
       data.direction = {};
       data.distance = 0;
+      data.jump = false;
+      data.diving = false;
       data.buttonOne= false;
       data.buttonTwo = false;
     },

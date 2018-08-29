@@ -11,16 +11,16 @@ module.exports = function initMaterials(instance, materials) {
 
     basicMaterial = new CANNON.Material("basicMaterial");
     basicContactMaterial = new CANNON.ContactMaterial(basicMaterial, basicMaterial, {
-        friction: 0.1,
-        restitution: 0.1,
+        friction: 0,
+        restitution: 10,
     });
     materials.basicMaterial = basicMaterial;
     instance.addContactMaterial(basicContactMaterial);
 
     trampolineMaterial = new CANNON.Material("trampolineMaterial");
     trampolineContactMaterial = new CANNON.ContactMaterial(trampolineMaterial, basicMaterial, {
-        friction: 0.0,
-        restitution: 10000.0,
+        friction: 0.05,
+        restitution: 0.6,
     });
     materials.trampolineMaterial = trampolineMaterial;
     instance.addContactMaterial(trampolineContactMaterial);
@@ -29,7 +29,7 @@ module.exports = function initMaterials(instance, materials) {
     playerMaterial.friction = 0;
     playerMaterial.restitution = 0.01;
     basicPlayerContactMaterial = new CANNON.ContactMaterial(playerMaterial, basicMaterial, {
-        friction: 0.9,
+        friction: 0,
         restitution: 0,
     });
     materials.playerMaterial = playerMaterial;
@@ -37,7 +37,7 @@ module.exports = function initMaterials(instance, materials) {
 
     trampolinePlayerContactMaterial = new CANNON.ContactMaterial(playerMaterial, trampolineMaterial, {
         friction: 0.0,
-        restitution: 1.1,
+        restitution: 2,
     });
     instance.addContactMaterial(trampolinePlayerContactMaterial);
 

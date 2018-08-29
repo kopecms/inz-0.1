@@ -6,13 +6,28 @@ import $ from 'jquery';
 const peer = (function() {
 
   let gameOn = false;
+  let lastGZ = 0;
 
-  const displayStartGame = () => {
+  function displayStartGame() {
     $('#you-are-connected').css('display', 'inline');
     $('#start-game').css('display', 'inline');
     $('#instructions').css('display', 'none');
-  };
+  }
 
+  function checkIfJump(data) {
+    let jump = false;
+    if (data.gz - lastGZ > 6) {
+      jump = true;
+    }
+    return jump;
+  }
+  function checkIfDiving(data) {
+    let diving = false;
+    if (data.gz - lastGZ < -6) {
+      diving = true;
+    }
+    return diving;
+  }
   return {
     startGame() {
       $('#connected-container').css('display', 'none');
@@ -33,8 +48,13 @@ const peer = (function() {
         displayStartGame();
         window.setInterval(() => {
           if (gameOn) {
-            conn.send(pad.getData());
-            console.log(pad.getData());
+            let data = pad.getData();
+            data.jump = checkIfJump(data);
+            data.diving = checkIfDiving(data);
+            lastGZ = data.gz;
+            conn.send(data);
+            $('#gyro').text(JSON.stringify(data.jump));
+            console.log(data);
             pad.resetData();
           }
         }, config.peerjsServer.messageInterval);

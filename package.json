@@ -8,9 +8,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "webpack-cli": "^2.0.13"
   },
   "dependencies": {
+    "webpack-cli": "^2.0.13",
     "body-parser": "^1.18.2",
     "cannon": "^0.6.2",
     "config": "^1.30.0",

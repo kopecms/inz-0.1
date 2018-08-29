@@ -43,6 +43,14 @@ body{
   width: 30%;
   top: 25%;
 }
+@media all and (max-width: 1000px) {
+  .login-segment {
+    width: 80%;
+  }
+  .login-container {
+    left: 10%;
+  }
+}
 .qrcode img {
   position: absolute;
   top: 25%;
@@ -143,12 +151,12 @@ textarea {
   text-align: center;
 }
 #match-score {
-  width: 10%;
+  width: 200px;
   font-size: 4em;
-  margin-top: 0.5em;
+  margin: 0.5em auto;
   position: fixed;
-  right: 45%;
-  left: 45%;
+  right: 0;
+  left: 0;
   padding: 20px;
   border: 1px solid  rgba(0, 0, 0, 0.3);
   border-radius: 10px;
